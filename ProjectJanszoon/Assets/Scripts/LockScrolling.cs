@@ -27,7 +27,7 @@ public class LockScrolling : MonoBehaviour
             Vector3 contentPos = _contentRect.localPosition;
             if (contentPos.y < _limit)
             {
-                // Keep commenting...
+                // Set scroll's velocity to zero so it stops moving and then set its y position to the limit.
                 _scrollRect.GetComponent<ScrollRect>().velocity = new Vector2(0f, 0f);
                 contentPos.y = _limit;
                 _contentRect.localPosition = contentPos;
@@ -36,6 +36,7 @@ public class LockScrolling : MonoBehaviour
             
         } else
         {
+            // Continue to second frame...
             _isAfterFirstFrame = true;
         }
 
