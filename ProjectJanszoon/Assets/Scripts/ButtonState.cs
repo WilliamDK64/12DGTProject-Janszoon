@@ -7,34 +7,33 @@ public class ButtonState : MonoBehaviour
 {
     
     public bool IsSelected = false;
+    [SerializeField] private GameObject[] _deactivate;
 
     private Button _button;
-    private Color _normalColor;
-    private Color _pressedColor;
-    private ColorBlock _buttonColorBlock;
+
+    public ColorBlock InactiveColor = ColorBlock.defaultColorBlock;
+    public ColorBlock ActiveColor = ColorBlock.defaultColorBlock;
 
     private void Start()
     {
+
+        ActiveColor.normalColor = InactiveColor.pressedColor;
+        ActiveColor.selectedColor = InactiveColor.pressedColor;
+        ActiveColor.highlightedColor = new Color32(210, 210, 210, 255);
+
         _button = GetComponent<Button>();
 
-        // YOU CAN USE COLORBLOCK STRUCT HERE - Good idea for code review
-        _normalColor = _button.colors.normalColor;
-        _pressedColor = _button.colors.pressedColor;
-        _buttonColorBlock = _button.colors;
     }
 
     private void Update()
     {
-        // This could once again use ColorBlock to make it better. It works for now though.
         if(IsSelected)
         {
-            _buttonColorBlock.normalColor = _pressedColor;
-            _button.colors = _buttonColorBlock;
+            _button.colors = ActiveColor;
 
         } else
         {
-            _buttonColorBlock.normalColor = _normalColor;
-            _button.colors = _buttonColorBlock;
+            _button.colors = InactiveColor;
         }
     }
 
