@@ -11,29 +11,41 @@ public class ButtonState : MonoBehaviour
 
     private Button _button;
 
-    public ColorBlock InactiveColor = ColorBlock.defaultColorBlock;
-    public ColorBlock ActiveColor = ColorBlock.defaultColorBlock;
+    private ColorBlock _inactiveColor = ColorBlock.defaultColorBlock;
+    private ColorBlock _activeColor = ColorBlock.defaultColorBlock;
 
     private void Start()
     {
 
-        ActiveColor.normalColor = InactiveColor.pressedColor;
-        ActiveColor.selectedColor = InactiveColor.pressedColor;
-        ActiveColor.highlightedColor = new Color32(210, 210, 210, 255);
+        _activeColor.normalColor = _inactiveColor.pressedColor;
+        _activeColor.selectedColor = _inactiveColor.pressedColor;
+        _activeColor.highlightedColor = new Color32(210, 210, 210, 255);
 
         _button = GetComponent<Button>();
 
     }
 
-    private void Update()
+    public void ChangeActivation()
     {
-        if(IsSelected)
-        {
-            _button.colors = ActiveColor;
 
-        } else
+        IsSelected = !IsSelected;
+
+        if (IsSelected)
         {
-            _button.colors = InactiveColor;
+            // Make the button look active.
+            _button.colors = _activeColor;
+
+            // Swap between different buttons.
+            // This may need to be changed for the colours.
+            foreach (GameObject selectable in _deactivate)
+            {
+                selectable.GetComponent<ButtonState>().IsSelected = false;
+            }
+
+        }
+        else
+        {
+            _button.colors = _inactiveColor;
         }
     }
 
