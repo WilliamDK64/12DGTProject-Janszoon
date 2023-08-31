@@ -13,6 +13,8 @@ public class SelectButton : MonoBehaviour
 
             buttonScript.IsSelected = !buttonScript.IsSelected;
             Debug.Log(buttonScript.IsSelected);
+
+            button.SendMessage("ChangeActivation");
         }
 
     }

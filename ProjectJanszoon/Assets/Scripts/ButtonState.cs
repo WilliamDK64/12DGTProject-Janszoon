@@ -25,7 +25,7 @@ public class ButtonState : MonoBehaviour
 
     }
 
-    public void ChangeActivation()
+    public void ChangeActivation(bool IsClicked)
     {
 
         IsSelected = !IsSelected;
@@ -35,18 +35,27 @@ public class ButtonState : MonoBehaviour
             // Make the button look active.
             _button.colors = _activeColor;
 
-            // Swap between different buttons.
-            // This may need to be changed for the colours.
-            foreach (GameObject selectable in _deactivate)
+            // Only deactivate the other button if this was the clicked button.
+            if(IsClicked)
             {
-                selectable.GetComponent<ButtonState>().IsSelected = false;
-            }
+                // Swap between different buttons.
+                // This may need to be changed for the colours.
+                foreach (GameObject selectable in _deactivate)
+                {
+                    if(selectable.GetComponent<ButtonState>().IsSelected == true)
+                    {
+                        selectable.GetComponent<ButtonState>().ChangeActivation(false);
+                    }  
+                }
+            }         
 
         }
         else
         {
             _button.colors = _inactiveColor;
         }
+
+        Debug.Log(IsSelected);
     }
 
 }
