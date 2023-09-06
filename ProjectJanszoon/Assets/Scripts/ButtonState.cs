@@ -23,6 +23,8 @@ public class ButtonState : MonoBehaviour
 
         _button = GetComponent<Button>();
 
+        Debug.Log(SearchList.Colors);
+
     }
 
     public void ChangeActivation(bool IsClicked)
@@ -55,7 +57,6 @@ public class ButtonState : MonoBehaviour
             _button.colors = _inactiveColor;
         }
 
-        Debug.Log(IsSelected);
     }
 
 }
