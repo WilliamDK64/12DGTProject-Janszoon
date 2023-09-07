@@ -9,3 +9,8 @@ public class Bird
     public string[] Colors = new string[8];
 
 }
+
+public class Tui : Bird
+{
+    //IsFlying = false;
+}
