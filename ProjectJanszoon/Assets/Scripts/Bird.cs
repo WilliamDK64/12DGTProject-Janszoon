@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bird
+public class Bird : MonoBehaviour
 {
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
 
-    public bool IsFlying;
-    public string[] Colors = new string[8];
-
-}
-
-public class Tui : Bird
-{
-    //IsFlying = false;
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
 }

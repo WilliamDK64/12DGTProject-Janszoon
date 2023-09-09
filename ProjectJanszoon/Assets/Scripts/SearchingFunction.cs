@@ -7,9 +7,7 @@ public class SearchingFunction : MonoBehaviour
 
     void Start()
     {
-        Tui tui = new();
-        tui.IsFlying = true;
-        //tui.Colors = new string["Black", "Blue"];
+        
     }
 
 }
