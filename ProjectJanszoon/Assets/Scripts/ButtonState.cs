@@ -5,7 +5,10 @@ using UnityEngine.UI;
 
 public class ButtonState : MonoBehaviour
 {
-    
+
+    public bool IsClicked;
+    public string Thingy;
+
     public bool IsSelected = false;
     [SerializeField] private GameObject[] _deactivate;
 
@@ -23,11 +26,11 @@ public class ButtonState : MonoBehaviour
 
         _button = GetComponent<Button>();
 
-        Debug.Log(SearchList.Colors);
+        _button.onClick.AddListener(() => { ChangeActivation(IsClicked, Thingy); }); // add a was clicked thingy here, luv u future william <3
 
     }
 
-    public void ChangeActivation(bool IsClicked)
+    public void ChangeActivation(bool IsClicked, string Thingy)
     {
 
         IsSelected = !IsSelected;
@@ -46,7 +49,7 @@ public class ButtonState : MonoBehaviour
                 {
                     if(selectable.GetComponent<ButtonState>().IsSelected == true)
                     {
-                        selectable.GetComponent<ButtonState>().ChangeActivation(false);
+                        selectable.GetComponent<ButtonState>().ChangeActivation(false, "idk");
                     }  
                 }
             }         
