@@ -26,7 +26,7 @@ public class ButtonState : MonoBehaviour
 
         _button = GetComponent<Button>();
 
-        _button.onClick.AddListener(() => { ChangeActivation(IsClicked, Thingy); }); // add a was clicked thingy here, luv u future william <3
+        _button.onClick.AddListener(() => { ChangeActivation(true, Thingy); }); // add a was clicked thingy here, luv u future william <3
 
     }
 
@@ -34,6 +34,9 @@ public class ButtonState : MonoBehaviour
     {
 
         IsSelected = !IsSelected;
+
+        Type type = // Use types, this.GetType().GetField("myVar").GetValue(this);, set it or smth. Idk. This should be really easy and might 
+                    // be overcomplicated. Have a great weekend future william!
 
         if (IsSelected)
         {

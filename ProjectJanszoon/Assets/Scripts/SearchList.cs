@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class SearchList
+public class SearchList
 {
-    public static bool? IsFlying;
+    public bool? IsFlying;
 
-    public static string[] Colors = new string[8];
+    public string[] Colors = new string[8];
 
 }
