@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,8 @@ public class ButtonState : MonoBehaviour
 {
 
     public bool IsClicked;
-    public string Thingy;
+    public string Parameter;
+    public bool ParameterState;
 
     public bool IsSelected = false;
     [SerializeField] private GameObject[] _deactivate;
@@ -26,17 +28,33 @@ public class ButtonState : MonoBehaviour
 
         _button = GetComponent<Button>();
 
-        _button.onClick.AddListener(() => { ChangeActivation(true, Thingy); }); // add a was clicked thingy here, luv u future william <3
+        _button.onClick.AddListener(() => { ChangeActivation(true, Parameter); });
 
     }
 
-    public void ChangeActivation(bool IsClicked, string Thingy)
+    public void ChangeActivation(bool IsClicked, string Parameter)
     {
 
         IsSelected = !IsSelected;
 
-        Type type = // Use types, this.GetType().GetField("myVar").GetValue(this);, set it or smth. Idk. This should be really easy and might 
-                    // be overcomplicated. Have a great weekend future william!
+        SearchParameters searchList = new SearchParameters();
+
+        var searchField = searchList.GetType().GetField(Parameter);
+        if (searchField != null)
+        {
+            searchField.SetValue(searchList, ParameterState);
+
+            // You need to make this modular, e.g. set string ParameterState to boolean (if required)
+            if(IsClicked && IsSelected == false)
+            {
+                SearchList.IsFlying = null;
+            } else
+            {
+                SearchList.IsFlying = ParameterState;
+            } 
+            Debug.Log(SearchList.IsFlying);
+        }
+
 
         if (IsSelected)
         {
