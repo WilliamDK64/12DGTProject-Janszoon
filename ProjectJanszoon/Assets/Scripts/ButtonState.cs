@@ -9,7 +9,7 @@ public class ButtonState : MonoBehaviour
 
     public bool IsClicked;
     public string Parameter;
-    public bool ParameterState;
+    public string ParameterState;
 
     public bool IsSelected = false;
     [SerializeField] private GameObject[] _deactivate;
@@ -37,20 +37,19 @@ public class ButtonState : MonoBehaviour
 
         IsSelected = !IsSelected;
 
-        SearchParameters searchList = new SearchParameters();
+        SearchingFunction searchList = GameObject.FindWithTag("SearchEngine").GetComponent<SearchingFunction>();
 
         var searchField = searchList.GetType().GetField(Parameter);
         if (searchField != null)
         {
-            searchField.SetValue(searchList, ParameterState);
 
             // You need to make this modular, e.g. set string ParameterState to boolean (if required)
             if(IsClicked && IsSelected == false)
             {
-                SearchList.IsFlying = null;
+                 = null;
             } else
             {
-                SearchList.IsFlying = ParameterState;
+                 = ParameterState;
             } 
             Debug.Log(SearchList.IsFlying);
         }

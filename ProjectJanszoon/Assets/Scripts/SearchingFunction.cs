@@ -6,8 +6,12 @@ using UnityEngine;
 public class SearchingFunction : MonoBehaviour
 {
 
-    public GameObject[] Birds;
+    // Parameter list
+    public bool? IsFlying;
+    public string[] Colors = new string[8];
 
+
+    public GameObject[] Birds;
     public void Search()
     {
 
