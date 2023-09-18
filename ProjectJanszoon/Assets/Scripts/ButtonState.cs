@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,21 +38,38 @@ public class ButtonState : MonoBehaviour
 
         IsSelected = !IsSelected;
 
-        SearchingFunction searchList = GameObject.FindWithTag("SearchEngine").GetComponent<SearchingFunction>();
+        SearchingFunction searchScript = GameObject.FindWithTag("SearchEngine").GetComponent<SearchingFunction>();
 
-        var searchField = searchList.GetType().GetField(Parameter);
+        var searchField = searchScript.GetType().GetField(Parameter);
         if (searchField != null)
         {
 
-            // You need to make this modular, e.g. set string ParameterState to boolean (if required)
-            if(IsClicked && IsSelected == false)
+            if(searchScript.GetType().GetField(Parameter).FieldType == typeof(bool?))
             {
-                 = null;
+                bool BooleanParameterState = bool.Parse(ParameterState);
+                if (IsClicked && IsSelected == false)
+                {
+                    searchScript.GetType().GetField(Parameter).SetValue(searchScript, null);
+                }
+                else
+                {
+                    searchScript.GetType().GetField(Parameter).SetValue(searchScript, BooleanParameterState);
+                }
             } else
             {
-                 = ParameterState;
-            } 
-            Debug.Log(SearchList.IsFlying);
+                if (IsClicked && IsSelected == false)
+                {
+                    searchScript.GetType().GetField(Parameter).SetValue(searchScript, null);
+                }
+                else
+                {
+                    searchScript.GetType().GetField(Parameter).SetValue(searchScript, ParameterState);
+                }
+
+            }
+
+            Debug.Log(searchScript.IsFlying);
+            
         }
 
 

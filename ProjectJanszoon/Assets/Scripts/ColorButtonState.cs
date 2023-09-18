@@ -6,6 +6,7 @@ public class ColorButtonState : MonoBehaviour
 {
      
     public bool IsSelected = false;
+    public string Colour;
 
     public void ChangeActivation(GameObject ring)
     {
