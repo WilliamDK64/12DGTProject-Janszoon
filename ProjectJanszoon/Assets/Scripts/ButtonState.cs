@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,8 +38,8 @@ public class ButtonState : MonoBehaviour
         IsSelected = !IsSelected;
 
         SearchingFunction searchScript = GameObject.FindWithTag("SearchEngine").GetComponent<SearchingFunction>();
-
         var searchField = searchScript.GetType().GetField(Parameter);
+
         if (searchField != null)
         {
 
@@ -67,8 +66,6 @@ public class ButtonState : MonoBehaviour
                 }
 
             }
-
-            Debug.Log(searchScript.IsFlying);
             
         }
 

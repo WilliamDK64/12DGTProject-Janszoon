@@ -12,13 +12,25 @@ public class SearchingFunction : MonoBehaviour
 
 
     public GameObject[] Birds;
+    [SerializeField] private Transform _canvas;
     public void Search()
     {
+        List<GameObject> birdList = new();
+        birdList.AddRange(Birds);
 
         foreach(GameObject bird in Birds)
         {
             Bird birdScript = bird.GetComponent<Bird>();
-            Debug.Log(birdScript.Name);
+            if(birdScript.IsFlying != IsFlying) 
+            {
+                birdList.Remove(bird);
+            }
+        }
+        
+        foreach(GameObject bird in birdList)
+        {
+            Debug.Log(bird);
+            Instantiate(bird, new Vector2(0, 0), Quaternion.identity, _canvas);
         }
     }
 
