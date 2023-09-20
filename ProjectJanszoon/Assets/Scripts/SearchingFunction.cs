@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,8 @@ public class SearchingFunction : MonoBehaviour
 
     [SerializeField] private GameObject _scrollArea;
     [SerializeField] private GameObject _searchArea;
+    [SerializeField] private RectTransform _searchContent;
+    [SerializeField] private RectTransform _searchAreaRect;
     [SerializeField] private GameObject _margin;
     [SerializeField] private Transform _resultParent;
     public void Search()
@@ -46,21 +49,32 @@ public class SearchingFunction : MonoBehaviour
             }
         }
 
-        // Switch the UI to the search result page
-        _scrollArea.SetActive(false);
-        _searchArea.SetActive(true);
-
-        // Create top margin
-        Instantiate(_margin, new Vector2(0, 0), Quaternion.identity, _resultParent);
-
-        // Show all the bird cards remaining
-        foreach (GameObject bird in birdList)
+        // If list isn't empty, show results
+        if(birdList.Any() == true) 
         {
-            Instantiate(bird, new Vector2(0, 0), Quaternion.identity, _resultParent);
-        }
+            // Switch the UI to the search result page
+            _scrollArea.SetActive(false);
+            _searchArea.SetActive(true);
 
-        // Create bottom margin
-        Instantiate(_margin, new Vector2(0, 0), Quaternion.identity, _resultParent);
+            // Create top margin
+            Instantiate(_margin, new Vector2(0, 0), Quaternion.identity, _resultParent);
+
+            
+            // Show all the bird cards remaining
+            foreach (GameObject bird in birdList)
+            {
+                Instantiate(bird, new Vector2(0, 0), Quaternion.identity, _resultParent);
+            }
+
+            // Create bottom margin
+            Instantiate(_margin, new Vector2(0, 0), Quaternion.identity, _resultParent);
+
+            // Start results from top of content rather than middle
+            Canvas.ForceUpdateCanvases();
+            Vector3 contentPosition = _searchContent.localPosition;
+            contentPosition.y = (_searchContent.sizeDelta.y - _searchAreaRect.sizeDelta.y) * -1;
+            _searchContent.localPosition = contentPosition;
+        }
     }
 
     public void CloseSearch()
