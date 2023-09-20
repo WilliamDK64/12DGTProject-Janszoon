@@ -13,7 +13,11 @@ public class SearchingFunction : MonoBehaviour
 
 
     public GameObject[] Birds;
-    [SerializeField] private Transform _canvas;
+
+    [SerializeField] private GameObject _scrollArea;
+    [SerializeField] private GameObject _searchArea;
+    [SerializeField] private GameObject _margin;
+    [SerializeField] private Transform _resultParent;
     public void Search()
     {
         // Create a list so that Birds array is unchanged
@@ -41,11 +45,36 @@ public class SearchingFunction : MonoBehaviour
                 }
             }
         }
-        
-        foreach(GameObject bird in birdList)
+
+        // Switch the UI to the search result page
+        _scrollArea.SetActive(false);
+        _searchArea.SetActive(true);
+
+        // Create top margin
+        Instantiate(_margin, new Vector2(0, 0), Quaternion.identity, _resultParent);
+
+        // Show all the bird cards remaining
+        foreach (GameObject bird in birdList)
         {
-            Instantiate(bird, new Vector2(0, 0), Quaternion.identity, _canvas);
+            Instantiate(bird, new Vector2(0, 0), Quaternion.identity, _resultParent);
         }
+
+        // Create bottom margin
+        Instantiate(_margin, new Vector2(0, 0), Quaternion.identity, _resultParent);
+    }
+
+    public void CloseSearch()
+    {
+        // Destroy all search results
+        GameObject[] deleteObjects = GameObject.FindGameObjectsWithTag("SearchResult");
+        foreach(GameObject card in deleteObjects)
+        {
+            Destroy(card);
+        }
+
+        // Switch the UI to the search choice page
+        _scrollArea.SetActive(true);
+        _searchArea.SetActive(false);
     }
 
 }
