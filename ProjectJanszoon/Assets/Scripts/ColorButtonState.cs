@@ -12,12 +12,13 @@ public class ColorButtonState : MonoBehaviour
 
     public void ChangeActivation(GameObject ring)
     {
-        
+        // Invert button state and show state using ring
         IsSelected = !IsSelected;
         ring.SetActive(IsSelected);
 
+        // Get Search Engine to save color choices to
         SearchingFunction searchScript = GameObject.FindWithTag("SearchEngine").GetComponent<SearchingFunction>();
-
+        // Search for an empty space in the array to save the color
         if(IsSelected)
         {
             _searching = true;
@@ -29,7 +30,9 @@ public class ColorButtonState : MonoBehaviour
                     _searching = false;
                 } 
             }
-        } else
+        } 
+        // If the color was deselected, find it in the array and delete it
+        else
         {
             for(int i = 0; i < 8; i++) 
             {

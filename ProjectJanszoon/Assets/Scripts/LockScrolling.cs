@@ -6,6 +6,11 @@ using UnityEngine.UI;
 public class LockScrolling : MonoBehaviour
 {
 
+
+    // THIS SCRIPT IS NO LONGER BEING USED IN THE PROJECT, BUT IS BEING KEPT IN CASE IT IS NEEDED
+
+
+
     [SerializeField] private RectTransform _scrollRect;
     [SerializeField] private RectTransform _contentRect;
     private float _yDifference;

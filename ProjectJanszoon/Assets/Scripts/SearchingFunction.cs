@@ -16,6 +16,7 @@ public class SearchingFunction : MonoBehaviour
     public GameObject[] Birds;
 
     [SerializeField] private GameObject _scrollArea;
+    [SerializeField] private GameObject _scrollMargin;
     [SerializeField] private GameObject _searchArea;
     [SerializeField] private RectTransform _searchContent;
     [SerializeField] private RectTransform _searchAreaRect;
@@ -54,6 +55,7 @@ public class SearchingFunction : MonoBehaviour
         {
             // Switch the UI to the search result page
             _scrollArea.SetActive(false);
+            _scrollMargin.SetActive(false);
             _searchArea.SetActive(true);
 
             // Create top margin
@@ -88,6 +90,7 @@ public class SearchingFunction : MonoBehaviour
 
         // Switch the UI to the search choice page
         _scrollArea.SetActive(true);
+        _scrollMargin.SetActive(true);
         _searchArea.SetActive(false);
     }
 
