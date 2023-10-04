@@ -18,6 +18,7 @@ public class SearchingFunction : MonoBehaviour
     [SerializeField] private GameObject _scrollArea;
     [SerializeField] private GameObject _scrollMargin;
     [SerializeField] private GameObject _searchArea;
+    [SerializeField] private GameObject _noResultText;
     [SerializeField] private RectTransform _searchContent;
     [SerializeField] private RectTransform _searchAreaRect;
     [SerializeField] private GameObject _margin;
@@ -76,6 +77,13 @@ public class SearchingFunction : MonoBehaviour
             Vector3 contentPosition = _searchContent.localPosition;
             contentPosition.y = (_searchContent.sizeDelta.y - _searchAreaRect.sizeDelta.y) * -1;
             _searchContent.localPosition = contentPosition;
+        } else 
+        {
+            // Switch the UI to the search result page
+            _scrollArea.SetActive(false);
+            _scrollMargin.SetActive(false);
+            _searchArea.SetActive(true);
+            _noResultText.SetActive(true);
         }
     }
 
@@ -92,6 +100,7 @@ public class SearchingFunction : MonoBehaviour
         _scrollArea.SetActive(true);
         _scrollMargin.SetActive(true);
         _searchArea.SetActive(false);
+        _noResultText.SetActive(false);
     }
 
 }
