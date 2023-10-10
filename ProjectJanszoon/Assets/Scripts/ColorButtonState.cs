@@ -8,7 +8,16 @@ public class ColorButtonState : MonoBehaviour
     public bool IsSelected = false;
     public string BirdColour;
 
+    [SerializeField] private GameObject _searchEngine;
+    private SearchingFunction _searchEngineScript;
+
     private bool _searching;
+
+    private void Start()
+    {
+        // Find the search engine
+        _searchEngineScript = _searchEngine.GetComponent<SearchingFunction>();
+    }
 
     public void ChangeActivation(GameObject ring)
     {
@@ -42,6 +51,9 @@ public class ColorButtonState : MonoBehaviour
                 }
             }
         }
+
+        // Update number of search results
+        _searchEngineScript.Search(false);
         
     }
 

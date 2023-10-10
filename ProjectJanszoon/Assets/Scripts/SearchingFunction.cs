@@ -4,6 +4,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class SearchingFunction : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class SearchingFunction : MonoBehaviour
 
     public GameObject[] Birds;
 
+    [SerializeField] private TMP_Text _searchButtonText;
     [SerializeField] private GameObject _scrollArea;
     [SerializeField] private GameObject _scrollMargin;
     [SerializeField] private GameObject _searchArea;
@@ -23,7 +25,8 @@ public class SearchingFunction : MonoBehaviour
     [SerializeField] private RectTransform _searchAreaRect;
     [SerializeField] private GameObject _margin;
     [SerializeField] private Transform _resultParent;
-    public void Search()
+
+    public void Search(bool openResultsPage)
     {
         // Create a list so that Birds array is unchanged
         List<GameObject> birdList = new();
@@ -51,40 +54,54 @@ public class SearchingFunction : MonoBehaviour
             }
         }
 
-        // If list isn't empty, show results
-        if(birdList.Any() == true) 
+        // Check if search button has been pushed 
+        if(openResultsPage == true)
         {
-            // Switch the UI to the search result page
-            _scrollArea.SetActive(false);
-            _scrollMargin.SetActive(false);
-            _searchArea.SetActive(true);
-
-            // Create top margin
-            Instantiate(_margin, new Vector2(0, 0), Quaternion.identity, _resultParent);
-
-            
-            // Show all the bird cards remaining
-            foreach (GameObject bird in birdList)
+            // If list isn't empty, show results
+            if(birdList.Any() == true) 
             {
-                Instantiate(bird, new Vector2(0, 0), Quaternion.identity, _resultParent);
+                // Switch the UI to the search result page
+                _scrollArea.SetActive(false);
+                _scrollMargin.SetActive(false);
+                _searchArea.SetActive(true);
+
+                // Create top margin
+                Instantiate(_margin, new Vector2(0, 0), Quaternion.identity, _resultParent);
+
+                
+                // Show all the bird cards remaining
+                foreach (GameObject bird in birdList)
+                {
+                    Instantiate(bird, new Vector2(0, 0), Quaternion.identity, _resultParent);
+                }
+
+                // Create bottom margin
+                Instantiate(_margin, new Vector2(0, 0), Quaternion.identity, _resultParent);
+
+                // Start results from top of content rather than middle
+                Canvas.ForceUpdateCanvases();
+                Vector3 contentPosition = _searchContent.localPosition;
+                contentPosition.y = (_searchContent.sizeDelta.y - _searchAreaRect.sizeDelta.y) * -1;
+                _searchContent.localPosition = contentPosition;
+            } else 
+            {
+                // Switch the UI to the search result page
+                _scrollArea.SetActive(false);
+                _scrollMargin.SetActive(false);
+                _searchArea.SetActive(true);
+                _noResultText.SetActive(true);
             }
-
-            // Create bottom margin
-            Instantiate(_margin, new Vector2(0, 0), Quaternion.identity, _resultParent);
-
-            // Start results from top of content rather than middle
-            Canvas.ForceUpdateCanvases();
-            Vector3 contentPosition = _searchContent.localPosition;
-            contentPosition.y = (_searchContent.sizeDelta.y - _searchAreaRect.sizeDelta.y) * -1;
-            _searchContent.localPosition = contentPosition;
-        } else 
+        } else
         {
-            // Switch the UI to the search result page
-            _scrollArea.SetActive(false);
-            _scrollMargin.SetActive(false);
-            _searchArea.SetActive(true);
-            _noResultText.SetActive(true);
+            if(birdList.Count == Birds.Length)
+            {
+                _searchButtonText.text = "Search";
+            } else 
+            {
+                _searchButtonText.text = "Search (" + birdList.Count + ")";
+            }
         }
+        
     }
 
     public void CloseSearch()

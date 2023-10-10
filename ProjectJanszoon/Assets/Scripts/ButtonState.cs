@@ -13,6 +13,8 @@ public class ButtonState : MonoBehaviour
 
     public bool IsSelected = false;
     [SerializeField] private GameObject[] _deactivate;
+    [SerializeField] private GameObject _searchEngine;
+    private SearchingFunction _searchEngineScript;
 
     private Button _button;
 
@@ -21,6 +23,8 @@ public class ButtonState : MonoBehaviour
 
     private void Start()
     {
+        // Find the search engine
+        _searchEngineScript = _searchEngine.GetComponent<SearchingFunction>();
 
         // Set new button colors
         _activeColor.normalColor = _inactiveColor.pressedColor;
@@ -71,6 +75,9 @@ public class ButtonState : MonoBehaviour
                 }
 
             }
+
+            // Update number of search results
+            _searchEngineScript.Search(false);
             
         }
 
